@@ -1,11 +1,13 @@
 {
-  "name": "instapay-backend",
+  "name": "stablecoin-backend-testnet",
   "version": "1.0.0",
   "type": "module",
+  "main": "src/index.js",
   "scripts": {
-    "dev": "node src/index.js"
+    "start": "node src/index.js"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "ethers": "^6.16.0",
     "express": "^4.19.2"
