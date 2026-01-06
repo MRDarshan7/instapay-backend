@@ -1,39 +1,32 @@
-import { Contract } from 'ethers'
-import { CHAINS } from '../chains.js'
-import { BACKEND_WALLET } from '../config.js'
-import { getProvider } from './provider.js'
-import { getRelayer } from './relayer.js'
-import USDC_ABI from '../abi/MockUSDC.json' assert { type: 'json' }
+import { ethers } from "ethers";
+import MockUSDC_ABI from "../abi/MockUSDC.js";
+import { CHAINS } from "../chains.js";
 
-export async function executeTransfer({ recipient, amount }) {
-  // 🧪 RANDOM network selection (TESTNET MODE)
-  const entries = Object.entries(CHAINS)
-  const randomIndex = Math.floor(Math.random() * entries.length)
-  const [chainKey, chain] = entries[randomIndex]
+export async function sendMockUSDC({ recipient, amount }) {
+  // 1️⃣ Random chain (testnet demo)
+  const chain = CHAINS[Math.floor(Math.random() * CHAINS.length)];
 
-  console.log(`🧪 Selected network: ${chain.name}`)
+  // 2️⃣ Provider + relayer wallet
+  const provider = new ethers.JsonRpcProvider(chain.rpc);
+  const wallet = new ethers.Wallet(process.env.RELAYER_PK, provider);
 
-  const provider = getProvider(chain.rpc)
-  const relayer = getRelayer(provider)
-
-  const usdc = new Contract(
+  // 3️⃣ Contract
+  const contract = new ethers.Contract(
     chain.usdc,
-    USDC_ABI,
-    relayer
-  )
+    MockUSDC_ABI,
+    wallet
+  );
 
-  const balance = await usdc.balanceOf(BACKEND_WALLET)
+  const decimals = await contract.decimals();
+  const parsedAmount = ethers.parseUnits(amount, decimals);
 
-  if (balance < BigInt(amount)) {
-    throw new Error(`Insufficient USDC on ${chain.name}`)
-  }
-
-  const tx = await usdc.transfer(recipient, amount)
-  const receipt = await tx.wait()
+  // 4️⃣ Send tx (relayer pays gas)
+  const tx = await contract.transfer(recipient, parsedAmount);
+  const receipt = await tx.wait();
 
   return {
-    success: true,
     network: chain.name,
-    txHash: receipt.hash,
-  }
+    chainId: chain.chainId,
+    txHash: receipt.hash
+  };
 }
