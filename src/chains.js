@@ -19,5 +19,12 @@ export const CHAINS = [
     chainId: 421614,
     rpc: process.env.ARBITRUM_SEPOLIA_RPC,
     usdc: "0xaB54c4eaa445916882Ef47F1159B4488d2442045"
+  },
+  {
+    key: "shardeum",
+    name: "Shardeum EVM Testnet",
+    chainId: 8119,
+    rpc: process.env.SHARDEUM_RPC,
+    usdc: "0x1D782Be54c51c95c60088Ea8f7069b51F8E84142", 
   }
 ];
