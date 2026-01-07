@@ -1,7 +1,10 @@
-import { Lightning } from "@inco/js/lite";
-import { supportedChains } from "@inco/js";
+import incoLite from "@inco/js/lite";
+import incoJs from "@inco/js";
 import { createWalletClient, http } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
+
+const { Lightning } = incoLite;
+const { supportedChains } = incoJs;
 
 function getIncoClient({ chainId, rpc, relayerPk }) {
   const account = privateKeyToAccount(`0x${relayerPk}`);
