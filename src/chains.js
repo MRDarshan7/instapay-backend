@@ -6,6 +6,7 @@ export const CHAINS = [
     rpc: process.env.POLYGON_AMOY_RPC,
     usdc: "0xaB54c4eaa445916882Ef47F1159B4488d2442045"
   },
+
   {
     key: "sepolia",
     name: "Ethereum Sepolia",
@@ -13,6 +14,7 @@ export const CHAINS = [
     rpc: process.env.SEPOLIA_RPC,
     usdc: "0x1B5336949072F738D31Bc650B7723DAcc0bb3659"
   },
+
   {
     key: "arb-sepolia",
     name: "Arbitrum Sepolia",
@@ -20,6 +22,7 @@ export const CHAINS = [
     rpc: process.env.ARBITRUM_SEPOLIA_RPC,
     usdc: "0xaB54c4eaa445916882Ef47F1159B4488d2442045"
   },
+
   {
     key: "shardeum",
     name: "Shardeum EVM Testnet",
