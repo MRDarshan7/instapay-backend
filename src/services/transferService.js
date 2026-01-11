@@ -22,7 +22,7 @@ export async function sendMockUSDC({ sender, recipient, amount }) {
   // Pick a random chain each attempt
   //const chain = CHAINS[Math.floor(Math.random() * CHAINS.length)];
   const chain = CHAINS.find(c => c.key === "sepolia"); //Sepolia only
-  console.log("Randomly selected chain:", chain.name);
+  console.log("Selected chain:", chain.name);
 
   //ALOGORITHM FOR CHEAPEST CHAIN
   // async function pickCheapestChain(amount) {
