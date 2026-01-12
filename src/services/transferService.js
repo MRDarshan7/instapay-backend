@@ -19,43 +19,43 @@ export async function sendMockUSDC({ sender, recipient, amount }) {
   let lastError = null;
 
   for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
-  // Pick a random chain each attempt
-  //const chain = CHAINS[Math.floor(Math.random() * CHAINS.length)];
-  const chain = CHAINS.find(c => c.key === "sepolia"); //Sepolia only
-  console.log("Selected chain:", chain.name);
+    // Pick a random chain each attempt
+    //const chain = CHAINS[Math.floor(Math.random() * CHAINS.length)];
+    const chain = CHAINS.find(c => c.key === "sepolia"); //Sepolia only
+    console.log("Selected chain:", chain.name);
 
-  //ALOGORITHM FOR CHEAPEST CHAIN
-  // async function pickCheapestChain(amount) {
-  // let best = null;
+    //ALOGORITHM FOR CHEAPEST CHAIN
+    // async function pickCheapestChain(amount) {
+    // let best = null;
 
-  // for (const chain of CHAINS) {
-  //   try {
-  //     const provider = new ethers.JsonRpcProvider(chain.rpc);
-  //     const wallet = new ethers.Wallet(process.env.RELAYER_PRIVATE_KEY, provider);
-  //     const contract = new ethers.Contract(chain.usdc, MockUSDC_ABI, wallet);
+    // for (const chain of CHAINS) {
+    //   try {
+    //     const provider = new ethers.JsonRpcProvider(chain.rpc);
+    //     const wallet = new ethers.Wallet(process.env.RELAYER_PRIVATE_KEY, provider);
+    //     const contract = new ethers.Contract(chain.usdc, MockUSDC_ABI, wallet);
 
-  //     const decimals = await contract.decimals();
-  //     const parsed = ethers.parseUnits(amount, decimals);
+    //     const decimals = await contract.decimals();
+    //     const parsed = ethers.parseUnits(amount, decimals);
 
-  //     const gas = await contract.transfer.estimateGas(
-  //       wallet.address,
-  //       parsed
-  //     );
+    //     const gas = await contract.transfer.estimateGas(
+    //       wallet.address,
+    //       parsed
+    //     );
 
-  //     const gasPrice = await provider.getGasPrice();
-  //     const cost = gas * gasPrice;
+    //     const gasPrice = await provider.getGasPrice();
+    //     const cost = gas * gasPrice;
 
-  //     if (!best || cost < best.cost) {
-  //       best = { chain, cost };
-  //     }
-  //   } catch (_) {}
-  // }
+    //     if (!best || cost < best.cost) {
+    //       best = { chain, cost };
+    //     }
+    //   } catch (_) {}
+    // }
 
-  // if (!best) throw new Error("No viable chain");
-  // return best.chain;
-  // }
+    // if (!best) throw new Error("No viable chain");
+    // return best.chain;
+    // }
 
-  //const chain = await pickCheapestChain(amount);
+    //const chain = await pickCheapestChain(amount);
 
     try {
       const provider = new ethers.JsonRpcProvider(chain.rpc);
