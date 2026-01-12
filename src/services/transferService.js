@@ -21,7 +21,7 @@ export async function sendMockUSDC({ sender, recipient, amount }) {
   for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
     // Pick a random chain each attempt
     //const chain = CHAINS[Math.floor(Math.random() * CHAINS.length)];
-    const chain = CHAINS.find(c => c.key === "sepolia"); //Sepolia only
+    const chain = CHAINS.find(c => c.key === "shardeum"); 
     console.log("Selected chain:", chain.name);
 
     //ALOGORITHM FOR CHEAPEST CHAIN
@@ -116,7 +116,8 @@ export async function sendMockUSDC({ sender, recipient, amount }) {
         network: chain.name,
         chainId: chain.chainId,
         txHash: receipt.hash,
-        etherscanTx: `https://sepolia.etherscan.io/tx/${receipt.hash}`,
+        etherscanTx: `https://explorer-mezame.shardeum.org/tx/${receipt.hash}`,
+        //etherscanTx: `https://sepolia.etherscan.io/tx/${receipt.hash}`,
         attempts: attempt
       };
       
