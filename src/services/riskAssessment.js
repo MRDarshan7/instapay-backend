@@ -1,4 +1,4 @@
-import { FhenixClient } from "fhenixjs";
+//import { FhenixClient } from "fhenixjs";
 
 // Initialize INCO (Fhenix) client
 const initIncoClient = async () => {
