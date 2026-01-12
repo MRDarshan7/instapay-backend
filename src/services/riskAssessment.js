@@ -1,19 +1,3 @@
-//import { FhenixClient } from "fhenixjs";
-
-// Initialize INCO (Fhenix) client
-const initIncoClient = async () => {
-  try {
-    const provider = new ethers.JsonRpcProvider(
-      process.env.INCO_RPC_URL || "https://api.helium.fhenix.zone"
-    );
-    const client = new FhenixClient({ provider });
-    return client;
-  } catch (error) {
-    console.error("Error initializing INCO client:", error);
-    throw error;
-  }
-};
-
 // Simulated encrypted blacklist (in production, this would be on-chain encrypted data)
 const HIGH_RISK_ADDRESSES = [
   "0x0000000000000000000000000000000000000000", // Null address
@@ -33,7 +17,6 @@ const isMediumRisk = (address) => {
 };
 
 /**
- * Assess recipient address risk using INCO's confidential computing
  * @param {string} recipientAddress - Ethereum address to check
  * @returns {Promise<{safe: boolean, riskLevel: string, reason: string}>}
  */
@@ -42,18 +25,13 @@ export async function assessRecipientRisk(recipientAddress) {
     // Normalize address
     const address = recipientAddress.toLowerCase();
     
-    console.log(`[INCO Risk Assessment] Checking address: ${address}`);
-    
-    // In a production environment with INCO:
-    // 1. Query encrypted on-chain blacklist
-    // 2. Perform confidential computation
-    // 3. Return risk score without exposing blacklist data
+    console.log(`[Risk Assessment] Checking address: ${address}`);
     
     // For now, simulate confidential risk assessment
     
     // HIGH RISK: Blacklisted addresses
     if (HIGH_RISK_ADDRESSES.includes(address)) {
-      console.log(`[INCO Risk Assessment]  HIGH RISK - Blacklisted address`);
+      console.log(`[Risk Assessment]  HIGH RISK - Blacklisted address`);
       return {
         safe: false,
         riskLevel: "HIGH",
@@ -63,7 +41,7 @@ export async function assessRecipientRisk(recipientAddress) {
     
     // MEDIUM RISK: Suspicious patterns
     if (isMediumRisk(address)) {
-      console.log(`[INCO Risk Assessment]  MEDIUM RISK - Suspicious pattern`);
+      console.log(`[Risk Assessment]  MEDIUM RISK - Suspicious pattern`);
       return {
         safe: true, // Allow but log warning
         riskLevel: "MEDIUM",
@@ -72,7 +50,7 @@ export async function assessRecipientRisk(recipientAddress) {
     }
     
     // LOW RISK: Safe to proceed
-    console.log(`[INCO Risk Assessment]  LOW RISK - Safe to proceed`);
+    console.log(`[Risk Assessment]  LOW RISK - Safe to proceed`);
     return {
       safe: true,
       riskLevel: "LOW",
@@ -80,7 +58,7 @@ export async function assessRecipientRisk(recipientAddress) {
     };
     
   } catch (error) {
-    console.error("[INCO Risk Assessment] Error:", error);
+    console.error("[Risk Assessment] Error:", error);
     // In case of error, fail safe - block transaction
     return {
       safe: false,
@@ -90,18 +68,14 @@ export async function assessRecipientRisk(recipientAddress) {
   }
 }
 
-/*
- * Add address to confidential blacklist (admin function)
- * In production, this would encrypt and store on-chain using INCO
- */
+
 export async function addToBlacklist(address) {
   try {
-    // This would use INCO's encrypted storage
     HIGH_RISK_ADDRESSES.push(address.toLowerCase());
-    console.log(`[INCO] Added ${address} to confidential blacklist`);
+    console.log(`Added ${address} to confidential blacklist`);
     return { success: true };
   } catch (error) {
-    console.error("[INCO] Error adding to blacklist:", error);
+    console.error("Error adding to blacklist:", error);
     return { success: false, error: error.message };
   }
 }
