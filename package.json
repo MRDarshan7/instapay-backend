@@ -10,6 +10,7 @@
     "node": "18.x"
   },
   "dependencies": {
+    "@inco/js": "^0.7.10",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "ethers": "^6.16.0",
