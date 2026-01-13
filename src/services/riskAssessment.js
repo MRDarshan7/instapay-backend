@@ -1,4 +1,4 @@
-import { inco } from "./incoClient.js";
+import { inco } from "./IncoClient.js";
 
 /**
  * Simulated encrypted blacklist
